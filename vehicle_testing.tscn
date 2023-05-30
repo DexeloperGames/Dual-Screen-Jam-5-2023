@@ -1,10 +1,20 @@
-[gd_scene load_steps=7 format=3 uid="uid://c4erfyx5e5r6o"]
+[gd_scene load_steps=9 format=3 uid="uid://c4erfyx5e5r6o"]
 
-[ext_resource type="Script" path="res://testvehicle.gd" id="1_tk3ti"]
+[ext_resource type="PackedScene" uid="uid://bbwkxk4vdp0qu" path="res://testcar.tscn" id="1_tw5aw"]
 [ext_resource type="Texture2D" uid="uid://ycyybqfce1ui" path="res://debug_texture.png" id="2_qmegm"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_xo5qs"]
-size = Vector3(1, 1, 2.26429)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_m0gqa"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_kev1e"]
+sky_material = SubResource("ProceduralSkyMaterial_m0gqa")
+
+[sub_resource type="Environment" id="Environment_md02q"]
+background_mode = 2
+sky = SubResource("Sky_kev1e")
+tonemap_mode = 2
+glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8jyfy"]
 albedo_texture = ExtResource("2_qmegm")
@@ -16,34 +26,14 @@ size = Vector2(50, 50)
 
 [node name="vehicle testing" type="Node3D"]
 
-[node name="VehicleBody3D" type="VehicleBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.993274, 0)
-script = ExtResource("1_tk3ti")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_md02q")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="VehicleBody3D"]
-shape = SubResource("BoxShape3D_xo5qs")
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
 
-[node name="CSGBox3D" type="CSGBox3D" parent="VehicleBody3D"]
-size = Vector3(1, 1, 2.24311)
-
-[node name="Camera3D" type="Camera3D" parent="VehicleBody3D"]
-transform = Transform3D(-1, 0, 8.9407e-08, 0, 1, 0, -8.9407e-08, 0, -1, 0, 1.75457, -3.83675)
-
-[node name="VehicleWheel3D" type="VehicleWheel3D" parent="VehicleBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.50243, -1.19209e-07, 1.12727)
-use_as_steering = true
-
-[node name="VehicleWheel3D2" type="VehicleWheel3D" parent="VehicleBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.493494, -1.19209e-07, -1.12334)
-use_as_traction = true
-
-[node name="VehicleWheel3D3" type="VehicleWheel3D" parent="VehicleBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.498402, -1.19209e-07, 1.12727)
-use_as_steering = true
-
-[node name="VehicleWheel3D4" type="VehicleWheel3D" parent="VehicleBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.507339, -1.19209e-07, -1.12334)
-use_as_traction = true
+[node name="VehicleBody3D" parent="." instance=ExtResource("1_tw5aw")]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_8jyfy")

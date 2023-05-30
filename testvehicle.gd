@@ -19,3 +19,12 @@ func _input(event):
 	var turn = Input.get_axis("right", "left")
 	steering = turn
 	pass
+
+func _physics_process(delta):
+	var grav_dir = -global_transform.basis.y
+	
+#	Note: This property is only read when the project starts. To change the default gravity vector at runtime, use the following code sample:
+	
+	# Set the default gravity direction to `Vector3(0, -1, 0)`.
+	PhysicsServer3D.area_set_param(get_world_3d().space, PhysicsServer3D.AREA_PARAM_GRAVITY_VECTOR, grav_dir)
+#	PhysicsServer3D.area_set_param()
