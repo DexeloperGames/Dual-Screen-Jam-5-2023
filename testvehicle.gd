@@ -27,4 +27,5 @@ func _physics_process(delta):
 	
 	# Set the default gravity direction to `Vector3(0, -1, 0)`.
 	PhysicsServer3D.area_set_param(get_world_3d().space, PhysicsServer3D.AREA_PARAM_GRAVITY_VECTOR, grav_dir)
+	$Control/Label.text = "%3.4f MPH"%(linear_velocity.length()*2.23694)
 #	PhysicsServer3D.area_set_param()
