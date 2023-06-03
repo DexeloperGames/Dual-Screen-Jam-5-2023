@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=3 uid="uid://6vknlw7po0xe"]
+
+[ext_resource type="Script" path="res://SimpleCar.gd" id="1_qsciq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5jpmw"]
+size = Vector3(2.274, 1.161, 4.835)
+
+[node name="SimpleCar" type="CharacterBody3D"]
+axis_lock_linear_y = true
+axis_lock_angular_y = true
+motion_mode = 1
+script = ExtResource("1_qsciq")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.631368, 0)
+shape = SubResource("BoxShape3D_5jpmw")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CollisionShape3D"]
+size = Vector3(2.274, 1.161, 4.835)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 2.20659, 6.08708)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0

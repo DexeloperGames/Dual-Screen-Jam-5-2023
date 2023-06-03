@@ -1,0 +1,37 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdyq6j4rdy3nw"]
+
+[ext_resource type="Script" path="res://map.gd" id="1_eiabd"]
+
+[node name="Map" type="Control" node_paths=PackedStringArray("map_pos_control") groups=["Player Position Recievers"]]
+layout_mode = 3
+anchors_preset = 0
+size_flags_vertical = 3
+script = ExtResource("1_eiabd")
+map_pos_control = NodePath("AspectRatioContainer/Control/Map Position")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Control" type="Control" parent="AspectRatioContainer"]
+layout_mode = 2
+
+[node name="Map Position" type="Control" parent="AspectRatioContainer/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Line2D" type="Line2D" parent="AspectRatioContainer/Control/Map Position"]
+points = PackedVector2Array(0.023, 0, 0, 0)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
