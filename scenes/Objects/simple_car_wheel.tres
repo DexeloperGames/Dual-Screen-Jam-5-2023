@@ -1,0 +1,68 @@
+[gd_resource type="VisualShader" load_steps=6 format=3 uid="uid://dpnsw00fotkye"]
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_kg3qx"]
+parameter_name = "Wheel_Texture"
+texture_filter = 1
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_28ol3"]
+source = 5
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_pam6o"]
+default_input_values = [0, Quaternion(0, 0, 0, 0)]
+op_type = 2
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_n02p8"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, 0.5]
+op_type = 4
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_ta51f"]
+constant = Color(0.7, 0.403433, 0.126, 1)
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D Wheel_Texture : filter_nearest;
+
+
+
+void fragment() {
+// ColorConstant:6
+	vec4 n_out6p0 = vec4(0.700000, 0.403433, 0.126000, 1.000000);
+
+
+	vec4 n_out3p0;
+// Texture2D:3
+	n_out3p0 = texture(Wheel_Texture, UV);
+
+
+// VectorDecompose:4
+	float n_out4p0 = n_out3p0.x;
+	float n_out4p1 = n_out3p0.y;
+	float n_out4p2 = n_out3p0.z;
+	float n_out4p3 = n_out3p0.w;
+
+
+// Mix:5
+	vec3 n_out5p0 = mix(vec3(n_out6p0.xyz), vec3(n_out3p0.xyz), n_out4p3);
+
+
+// Output:0
+	ALBEDO = n_out5p0;
+
+
+}
+"
+graph_offset = Vector2(484, 151)
+nodes/fragment/0/position = Vector2(1160, 200)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture2DParameter_kg3qx")
+nodes/fragment/2/position = Vector2(-20, 180)
+nodes/fragment/3/node = SubResource("VisualShaderNodeTexture_28ol3")
+nodes/fragment/3/position = Vector2(334, 325)
+nodes/fragment/4/node = SubResource("VisualShaderNodeVectorDecompose_pam6o")
+nodes/fragment/4/position = Vector2(595, 386)
+nodes/fragment/5/node = SubResource("VisualShaderNodeMix_n02p8")
+nodes/fragment/5/position = Vector2(897, 394)
+nodes/fragment/6/node = SubResource("VisualShaderNodeColorConstant_ta51f")
+nodes/fragment/6/position = Vector2(620, 300)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 2, 3, 0, 4, 0, 4, 3, 5, 2, 3, 0, 5, 1, 6, 0, 5, 0, 5, 0, 0, 0)
