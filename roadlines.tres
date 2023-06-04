@@ -1,0 +1,72 @@
+[gd_resource type="VisualShader" load_steps=7 format=3 uid="uid://bfau7yq245lrc"]
+
+[ext_resource type="Texture2D" uid="uid://c0rey37wym0ji" path="res://Road Test Lines 1.png" id="1_u623g"]
+
+[sub_resource type="VisualShaderNodeTexture" id="VisualShaderNodeTexture_qs3hs"]
+source = 5
+texture = ExtResource("1_u623g")
+
+[sub_resource type="VisualShaderNodeVectorDecompose" id="VisualShaderNodeVectorDecompose_owa2e"]
+default_input_values = [0, Quaternion(0, 0, 0, 0)]
+op_type = 2
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_6n4gt"]
+input_name = "uv"
+
+[sub_resource type="VisualShaderNodeMix" id="VisualShaderNodeMix_bt27v"]
+default_input_values = [0, Vector3(0, 0, 0), 1, Vector3(1, 1, 1), 2, 0.5]
+op_type = 4
+
+[sub_resource type="VisualShaderNodeTexture2DParameter" id="VisualShaderNodeTexture2DParameter_vm3qc"]
+parameter_name = "Road_Lines"
+texture_filter = 1
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_lambert, specular_schlick_ggx;
+
+uniform sampler2D Road_Lines : filter_nearest;
+
+
+
+void fragment() {
+// Input:4
+	vec2 n_out4p0 = UV;
+
+
+	vec4 n_out2p0;
+// Texture2D:2
+	n_out2p0 = texture(Road_Lines, n_out4p0);
+
+
+// VectorDecompose:3
+	float n_out3p0 = n_out2p0.x;
+	float n_out3p1 = n_out2p0.y;
+	float n_out3p2 = n_out2p0.z;
+	float n_out3p3 = n_out2p0.w;
+
+
+// Mix:5
+	vec3 n_in5p0 = vec3(0.00000, 0.00000, 0.00000);
+	vec3 n_out5p0 = mix(n_in5p0, vec3(n_out3p0), n_out3p3);
+
+
+// Output:0
+	ALBEDO = n_out5p0;
+
+
+}
+"
+graph_offset = Vector2(-504.47, 41.1965)
+nodes/fragment/0/position = Vector2(840, 120)
+nodes/fragment/2/node = SubResource("VisualShaderNodeTexture_qs3hs")
+nodes/fragment/2/position = Vector2(-100, 160)
+nodes/fragment/3/node = SubResource("VisualShaderNodeVectorDecompose_owa2e")
+nodes/fragment/3/position = Vector2(220, 120)
+nodes/fragment/4/node = SubResource("VisualShaderNodeInput_6n4gt")
+nodes/fragment/4/position = Vector2(-540, 320)
+nodes/fragment/5/node = SubResource("VisualShaderNodeMix_bt27v")
+nodes/fragment/5/position = Vector2(520, 80)
+nodes/fragment/6/node = SubResource("VisualShaderNodeTexture2DParameter_vm3qc")
+nodes/fragment/6/position = Vector2(-640, 20)
+nodes/fragment/connections = PackedInt32Array(2, 0, 3, 0, 4, 0, 2, 0, 3, 3, 5, 2, 3, 0, 5, 1, 5, 0, 0, 0, 6, 0, 2, 2)
