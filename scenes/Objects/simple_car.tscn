@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://6vknlw7po0xe"]
+[gd_scene load_steps=14 format=3 uid="uid://6vknlw7po0xe"]
 
 [ext_resource type="Script" path="res://scenes/Objects/SimpleCar.gd" id="1_qsciq"]
 [ext_resource type="PackedScene" uid="uid://brim6o8tsvfcj" path="res://scenes/Objects/pointer_thing.tscn" id="2_6swny"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://xswgk0b7g27f" path="res://assets/textures/Car Paint.png" id="4_qui4u"]
 [ext_resource type="Shader" uid="uid://dpnsw00fotkye" path="res://scenes/Objects/simple_car_wheel.tres" id="5_0mwvq"]
 [ext_resource type="Texture2D" uid="uid://c60s3u2qjy1xp" path="res://assets/textures/Wheels Texture.png" id="6_n1jih"]
+[ext_resource type="AudioStream" uid="uid://2eou1aoaw8ew" path="res://assets/sounds/engine-loop-1-normalized-2.wav" id="8_ktqpr"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5jpmw"]
 size = Vector3(2.274, 1.161, 4.835)
@@ -49,6 +50,9 @@ size = Vector3(2.274, 1.161, 4.835)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 2.20659, 6.08708)
+
+[node name="AudioListener3D" type="AudioListener3D" parent="Camera3D"]
+current = true
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -111,5 +115,8 @@ surface_material_override/0 = SubResource("ShaderMaterial_n32y7")
 
 [node name="Cylinder004" parent="car yay" index="4"]
 surface_material_override/0 = SubResource("ShaderMaterial_n32y7")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("8_ktqpr")
 
 [editable path="car yay"]

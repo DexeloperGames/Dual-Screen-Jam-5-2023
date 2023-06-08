@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://caprwfieqxglr"]
 
 [ext_resource type="Script" path="res://scenes/UI/ds_display_manager.gd" id="1_p222f"]
-[ext_resource type="PackedScene" uid="uid://b166urlx7oa2k" path="res://scenes/Objects/car_view_thing.tscn" id="2_hvaj0"]
+[ext_resource type="PackedScene" uid="uid://bsg8p1gcmf7c2" path="res://scenes/UI/title_screen.tscn" id="2_c8247"]
 
 [node name="DS Display Manager" type="Control" groups=["DS Display Manager"]]
 layout_mode = 3
@@ -10,5 +10,5 @@ offset_right = 256.0
 offset_bottom = 384.0
 script = ExtResource("1_p222f")
 
-[node name="CarViewThing" parent="." instance=ExtResource("2_hvaj0")]
+[node name="Title Screen" parent="." instance=ExtResource("2_c8247")]
 layout_mode = 1

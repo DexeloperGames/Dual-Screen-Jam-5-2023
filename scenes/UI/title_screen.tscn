@@ -1,0 +1,240 @@
+[gd_scene load_steps=22 format=3 uid="uid://bsg8p1gcmf7c2"]
+
+[ext_resource type="Script" path="res://scenes/UI/title_screen.gd" id="1_o64us"]
+[ext_resource type="PackedScene" uid="uid://b0nyn7e8hfihl" path="res://assets/models/car yay.glb" id="2_1h18b"]
+[ext_resource type="Shader" uid="uid://borgs8ag48grs" path="res://scenes/Objects/simple_car_paint.tres" id="3_6tarb"]
+[ext_resource type="Texture2D" uid="uid://xswgk0b7g27f" path="res://assets/textures/Car Paint.png" id="4_ar7xc"]
+[ext_resource type="Shader" uid="uid://dpnsw00fotkye" path="res://scenes/Objects/simple_car_wheel.tres" id="5_svjwf"]
+[ext_resource type="Texture2D" uid="uid://c60s3u2qjy1xp" path="res://assets/textures/Wheels Texture.png" id="6_aoo2b"]
+[ext_resource type="PackedScene" uid="uid://du8b0o43x476s" path="res://scenes/Objects/city_buildings.tscn" id="7_dyxfj"]
+[ext_resource type="PackedScene" uid="uid://b3mepdjxurgmh" path="res://assets/models/road lines mesh 3.glb" id="8_h47bm"]
+[ext_resource type="Shader" uid="uid://bfau7yq245lrc" path="res://scenes/Levels/roadlines.tres" id="9_v2af1"]
+[ext_resource type="Texture2D" uid="uid://c0rey37wym0ji" path="res://assets/textures/Road Test Lines 1.png" id="10_qlnsl"]
+[ext_resource type="Shader" uid="uid://cjj8o61uqwiar" path="res://scenes/Levels/basecardboard.tres" id="11_42hdd"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rnmik"]
+render_priority = 0
+shader = ExtResource("3_6tarb")
+shader_parameter/Texture2DParameter = ExtResource("4_ar7xc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uvnd1"]
+render_priority = 0
+shader = ExtResource("5_svjwf")
+shader_parameter/Wheel_Texture = ExtResource("6_aoo2b")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_632qm"]
+render_priority = 0
+shader = ExtResource("9_v2af1")
+shader_parameter/Road_Lines = ExtResource("10_qlnsl")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xhdfb"]
+render_priority = 0
+shader = ExtResource("11_42hdd")
+
+[sub_resource type="Animation" id="Animation_y8t1o"]
+resource_name = "coolspin"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_llymh"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qrewk"]
+_data = {
+"RESET": SubResource("Animation_llymh"),
+"coolspin": SubResource("Animation_y8t1o")
+}
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bvloh"]
+sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
+
+[sub_resource type="Sky" id="Sky_kt738"]
+sky_material = SubResource("ProceduralSkyMaterial_bvloh")
+
+[sub_resource type="Environment" id="Environment_vhd4w"]
+background_mode = 2
+sky = SubResource("Sky_kt738")
+tonemap_mode = 2
+glow_enabled = true
+
+[node name="Title Screen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_o64us")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="VBoxContainer/SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(1280, 360)
+render_target_update_mode = 4
+
+[node name="Node3D" type="Node3D" parent="VBoxContainer/SubViewportContainer/SubViewport"]
+
+[node name="car yay" parent="VBoxContainer/SubViewportContainer/SubViewport/Node3D" instance=ExtResource("2_1h18b")]
+
+[node name="Plane003" parent="VBoxContainer/SubViewportContainer/SubViewport/Node3D/car yay" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_rnmik")
+
+[node name="Cylinder" parent="VBoxContainer/SubViewportContainer/SubViewport/Node3D/car yay" index="1"]
+surface_material_override/0 = SubResource("ShaderMaterial_uvnd1")
+
+[node name="Cylinder002" parent="VBoxContainer/SubViewportContainer/SubViewport/Node3D/car yay" index="2"]
+surface_material_override/0 = SubResource("ShaderMaterial_uvnd1")
+
+[node name="Cylinder003" parent="VBoxContainer/SubViewportContainer/SubViewport/Node3D/car yay" index="3"]
+surface_material_override/0 = SubResource("ShaderMaterial_uvnd1")
+
+[node name="Cylinder004" parent="VBoxContainer/SubViewportContainer/SubViewport/Node3D/car yay" index="4"]
+surface_material_override/0 = SubResource("ShaderMaterial_uvnd1")
+
+[node name="City Buildings" parent="VBoxContainer/SubViewportContainer/SubViewport/Node3D" instance=ExtResource("7_dyxfj")]
+
+[node name="road lines mesh 3" parent="VBoxContainer/SubViewportContainer/SubViewport/Node3D" instance=ExtResource("8_h47bm")]
+
+[node name="Road Mesh001" parent="VBoxContainer/SubViewportContainer/SubViewport/Node3D/road lines mesh 3" index="0"]
+surface_material_override/0 = SubResource("ShaderMaterial_632qm")
+surface_material_override/1 = SubResource("ShaderMaterial_xhdfb")
+
+[node name="Marker3D" type="Marker3D" parent="VBoxContainer/SubViewportContainer/SubViewport/Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="VBoxContainer/SubViewportContainer/SubViewport/Node3D/Marker3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.76837e-07, 2.20659, 6.08708)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="VBoxContainer/SubViewportContainer/SubViewport/Node3D/Marker3D/Camera3D"]
+speed_scale = 0.05
+libraries = {
+"": SubResource("AnimationLibrary_qrewk")
+}
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="VBoxContainer/SubViewportContainer/SubViewport/Node3D"]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="VBoxContainer/SubViewportContainer/SubViewport/Node3D"]
+environment = SubResource("Environment_vhd4w")
+
+[node name="Control" type="Control" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="TabContainer" type="TabContainer" parent="VBoxContainer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="Control" parent="VBoxContainer/Control/TabContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Control/TabContainer/Menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/Control/TabContainer/Menu/VBoxContainer"]
+layout_mode = 2
+text = "Carboard"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="VBoxContainer/Control/TabContainer/Menu/VBoxContainer"]
+layout_mode = 2
+text = "PLAY!!!!"
+
+[node name="Best Time Label" type="Label" parent="VBoxContainer/Control/TabContainer/Menu/VBoxContainer"]
+layout_mode = 2
+horizontal_alignment = 1
+
+[node name="Options" type="Control" parent="VBoxContainer/Control/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Control/TabContainer/Options"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_right = 0.9
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/Control/TabContainer/Options/VBoxContainer"]
+layout_mode = 2
+text = "Volume"
+
+[node name="HSlider" type="HSlider" parent="VBoxContainer/Control/TabContainer/Options/VBoxContainer"]
+layout_mode = 2
+value = 100.0
+
+[node name="Credits" type="Control" parent="VBoxContainer/Control/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/Control/TabContainer/Credits"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Programming: Dexel
+3D Modeling: Dexel
+Texturing: Dexel
+Game Design: Dexel
+Audio: OpenGameArt.org
+Player: You"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="pressed" from="VBoxContainer/Control/TabContainer/Menu/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="value_changed" from="VBoxContainer/Control/TabContainer/Options/VBoxContainer/HSlider" to="." method="_on_h_slider_value_changed"]
+
+[editable path="VBoxContainer/SubViewportContainer/SubViewport/Node3D/car yay"]
+[editable path="VBoxContainer/SubViewportContainer/SubViewport/Node3D/road lines mesh 3"]

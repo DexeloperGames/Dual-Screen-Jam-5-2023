@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dc670uxbvr6lj"]
+
+[ext_resource type="Script" path="res://scenes/Objects/ding_sound.gd" id="1_8ib2u"]
+[ext_resource type="AudioStream" uid="uid://8p15fgs4wo6a" path="res://assets/sounds/misc_menu_4.wav" id="1_aja1x"]
+
+[node name="Ding Sound" type="Node3D"]
+script = ExtResource("1_8ib2u")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("1_aja1x")
+volume_db = 80.0
+unit_size = 100.0
+max_db = 6.0
+
+[connection signal="finished" from="AudioStreamPlayer3D" to="." method="_on_audio_stream_player_3d_finished"]

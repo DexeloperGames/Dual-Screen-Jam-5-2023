@@ -10,6 +10,7 @@ class_name SimpleCar
 var start_time : float = 0
 var score : int = 0
 var winning_score : int = 10
+var RPM : float = 5000
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
@@ -19,7 +20,8 @@ func _ready():
 	await get_tree().physics_frame
 	start_time = Time.get_ticks_usec()/1.0e+6
 	$"Control/Current Score Label".text = "%d/%d"%[score,winning_score]
-	
+	$AudioStreamPlayer3D.play()
+	Globals.save()
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -29,7 +31,13 @@ func _physics_process(delta):
 	# Handle Jump.
 #	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
 #		velocity.y = JUMP_VELOCITY
-
+	if Input.get_axis("backwards","forwards") != 0.0:
+		RPM = min(RPM+1000*delta,10000)
+	else:
+		RPM = max(1000,RPM-10000*delta)
+	
+	var sound_pitch_factor = RPM/5000
+	$AudioStreamPlayer3D.pitch_scale = sound_pitch_factor
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir = Input.get_vector("left", "right", "forwards", "backwards")

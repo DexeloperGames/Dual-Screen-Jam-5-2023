@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://0mab53r1a7q5"]
+[gd_scene load_steps=4 format=3 uid="uid://0mab53r1a7q5"]
 
 [ext_resource type="Script" path="res://scenes/UI/win_screen.gd" id="1_luhgp"]
+[ext_resource type="AudioStream" uid="uid://8p15fgs4wo6a" path="res://assets/sounds/misc_menu_4.wav" id="2_d6dx2"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kmh01"]
 shadow_size = 5
@@ -16,7 +17,10 @@ grow_vertical = 2
 script = ExtResource("1_luhgp")
 winning_format_text = "You Win!
 You got all %d/%d in just
-%d:%05.3f"
+%d:%06.3f"
+beat_dev_format_text = "You just beat the developer's best time!!
+You're time: %d:%06.3f
+Developer's time: 1:14.446"
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
@@ -31,7 +35,7 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "You Win!
 You got all %d/%d in just
-%d:%05.3f"
+%d:%06.3f"
 label_settings = SubResource("LabelSettings_kmh01")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -40,7 +44,7 @@ vertical_alignment = 1
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="VBoxContainer/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/Control"]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.1
@@ -49,7 +53,21 @@ anchor_right = 0.9
 anchor_bottom = 0.9
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Button" type="Button" parent="VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
 size_flags_vertical = 3
 text = "Play Again"
 
-[connection signal="pressed" from="VBoxContainer/Control/Button" to="." method="_on_button_pressed"]
+[node name="Button2" type="Button" parent="VBoxContainer/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Exit to Title Screen"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_d6dx2")
+volume_db = 1.664
+autoplay = true
+
+[connection signal="pressed" from="VBoxContainer/Control/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/Control/VBoxContainer/Button2" to="." method="_on_button_2_pressed"]
