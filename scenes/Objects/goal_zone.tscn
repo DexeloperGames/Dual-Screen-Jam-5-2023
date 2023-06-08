@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=3 uid="uid://b6adqus6l64gb"]
+
+[ext_resource type="Script" path="res://scenes/Objects/goal_zone.gd" id="1_lu7md"]
+[ext_resource type="Shader" uid="uid://d2ymssj8y0b5q" path="res://scenes/Objects/goal_zone_shader.tres" id="2_06465"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_n3ivg"]
+radius = 20.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ttqer"]
+top_radius = 20.0
+bottom_radius = 20.0
+height = 100.0
+radial_segments = 8
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2ql2x"]
+render_priority = 0
+shader = ExtResource("2_06465")
+
+[node name="Goal Zone" type="Node3D"]
+script = ExtResource("1_lu7md")
+
+[node name="Area3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CylinderShape3D_n3ivg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 50, 0)
+mesh = SubResource("CylinderMesh_ttqer")
+surface_material_override/0 = SubResource("ShaderMaterial_2ql2x")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_area_3d_area_entered"]
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

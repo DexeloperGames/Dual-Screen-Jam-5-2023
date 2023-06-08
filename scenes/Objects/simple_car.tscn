@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://6vknlw7po0xe"]
+[gd_scene load_steps=13 format=3 uid="uid://6vknlw7po0xe"]
 
 [ext_resource type="Script" path="res://scenes/Objects/SimpleCar.gd" id="1_qsciq"]
+[ext_resource type="PackedScene" uid="uid://brim6o8tsvfcj" path="res://scenes/Objects/pointer_thing.tscn" id="2_6swny"]
 [ext_resource type="PackedScene" uid="uid://b0nyn7e8hfihl" path="res://assets/models/car yay.glb" id="2_6vxlw"]
 [ext_resource type="Shader" uid="uid://borgs8ag48grs" path="res://scenes/Objects/simple_car_paint.tres" id="3_c15cb"]
 [ext_resource type="Texture2D" uid="uid://xswgk0b7g27f" path="res://assets/textures/Car Paint.png" id="4_qui4u"]
@@ -9,6 +10,15 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_5jpmw"]
 size = Vector3(2.274, 1.161, 4.835)
+
+[sub_resource type="LabelSettings" id="LabelSettings_q6ner"]
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.807843)
+
+[sub_resource type="LabelSettings" id="LabelSettings_lkqcm"]
+font_size = 20
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.807843)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c7ye4"]
 render_priority = 0
@@ -20,11 +30,14 @@ render_priority = 0
 shader = ExtResource("5_0mwvq")
 shader_parameter/Wheel_Texture = ExtResource("6_n1jih")
 
-[node name="SimpleCar" type="CharacterBody3D"]
+[node name="SimpleCar" type="CharacterBody3D" groups=["Player Score Recievers"]]
 axis_lock_linear_y = true
 axis_lock_angular_y = true
 motion_mode = 1
 script = ExtResource("1_qsciq")
+
+[node name="Pointer Thing" parent="." instance=ExtResource("2_6swny")]
+transform = Transform3D(2.383, 0, 0, 0, 2.383, 0, 0, 0, 2.383, 0, 4.817, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.580187, 0)
@@ -46,9 +59,41 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="Control"]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
 offset_right = 40.0
+grow_vertical = 0
+text = "SPEED: 1MPH"
+label_settings = SubResource("LabelSettings_q6ner")
+
+[node name="Time Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "0:00.000"
+label_settings = SubResource("LabelSettings_q6ner")
+
+[node name="Current Score Label" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
 offset_bottom = 23.0
+grow_horizontal = 2
+text = "0/10"
+label_settings = SubResource("LabelSettings_lkqcm")
 
 [node name="car yay" parent="." instance=ExtResource("2_6vxlw")]
 

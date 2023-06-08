@@ -1,7 +1,9 @@
 extends Control
 
 @export var map_pos_control : Control
+@export var goal_pos_control : Control
 var points : PackedVector2Array
+#var points_3d : PackedVector3Array
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	RenderingServer.connect("frame_pre_draw",_on_frame_draw_pre)
@@ -44,11 +46,25 @@ func _on_frame_draw_pre():
 	
 	pass
 
-#func _draw():
-##	print(points.size())
-##	draw_polyline(points, Color.WHITE, 20)
-#	if points.is_empty(): return
-#	for dot in points:
-#		draw_circle(dot,3,Color.RED)
+func recieve_goal(goal : GoalZone):
+	var pos = goal.global_position
+	var remaped_pos = Vector2(pos.z,-pos.x)/1000.0+Vector2.ONE*0.5
+	goal_pos_control.anchor_bottom = remaped_pos.y
+	goal_pos_control.anchor_top = remaped_pos.y
+	
+	goal_pos_control.anchor_right = remaped_pos.x
+	goal_pos_control.anchor_left = remaped_pos.x
+
+func debug_draw_points(debug_points : PackedVector2Array):
+	$"AspectRatioContainer/Control/Center/Map Meshes/MeshInstance2D/Weird debug thing".points = debug_points
+#	points = debug_points
+#	queue_redraw()
+
+func _draw():
+#	print(points.size())
+#	draw_polyline(points, Color.WHITE, 20)
+	if points.is_empty(): return
+	for dot in points:
+		draw_circle(dot,3,Color.RED)
 #	if points.size() > 1:
 #		draw_polyline(points,Color.RED,6)

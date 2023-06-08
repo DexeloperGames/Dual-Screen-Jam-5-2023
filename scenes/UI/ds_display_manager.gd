@@ -1,11 +1,7 @@
 extends Control
 
-#@export var title_screen = preload("res://scenes/UI/title_screen.tscn")
-#@export var settings_menu = preload("res://scenes/UI/settings_menu.tscn")
-#@export var opening_cutscene = preload("res://scenes/cutscene_display.tscn")
-#
-#@export var text_cutscene = preload("res://scenes/dialoug_or_whatever.tscn")
-#@export var gameplay = preload("res://scenes/objects/playfield.tscn")
+@export var main_level : PackedScene = preload("res://scenes/Objects/car_view_thing.tscn")
+@export var win_screen : PackedScene = preload("res://scenes/UI/win_screen.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -24,17 +20,8 @@ func switch_to(scene : PackedScene):
 	var new_screen = scene.instantiate()
 	add_child(new_screen)
 
-#func switch_to_main_menu():
-#	switch_to(title_screen)
-#
-#func switch_to_settings():
-#	switch_to(settings_menu)
-#
-#func switch_to_opening():
-#	switch_to(opening_cutscene)
-#
-#func switch_to_text_cutscene():
-#	switch_to(text_cutscene)
-#
-#func switch_to_gameplay():
-#	switch_to(gameplay)
+func switch_to_main_level():
+	switch_to(main_level)
+
+func switch_to_win_screen():
+	switch_to(win_screen)

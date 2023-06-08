@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://brim6o8tsvfcj"]
+
+[ext_resource type="Script" path="res://scenes/Objects/pointer_thing.gd" id="1_1yyw7"]
+[ext_resource type="Shader" uid="uid://cme04a52xwgqi" path="res://scenes/Objects/pointer_thing_shader.tres" id="2_r68nr"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_fr1me"]
+size = Vector3(0.918, 1.093, 0.165)
+
+[sub_resource type="PrismMesh" id="PrismMesh_11al8"]
+subdivide_width = 1
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m1b33"]
+render_priority = 0
+shader = ExtResource("2_r68nr")
+
+[node name="Pointer Thing" type="Node3D" groups=["Goal Recievers"]]
+script = ExtResource("1_1yyw7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+visible = false
+mesh = SubResource("PrismMesh_fr1me")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("PrismMesh_11al8")
+surface_material_override/0 = SubResource("ShaderMaterial_m1b33")

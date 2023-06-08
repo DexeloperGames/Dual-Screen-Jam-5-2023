@@ -15,7 +15,8 @@ func _process(delta):
 	pass
 
 func _gui_input(event):
-	print("EVENT")
+#	print("EVENT")
+	pass
 
 
 func _on_top_screen_gui_input(event):

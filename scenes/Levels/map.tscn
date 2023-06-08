@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bdyq6j4rdy3nw"]
+[gd_scene load_steps=9 format=3 uid="uid://bdyq6j4rdy3nw"]
 
 [ext_resource type="Script" path="res://scenes/Levels/map.gd" id="1_wixqh"]
 [ext_resource type="Shader" uid="uid://dxso84sb238d" path="res://scenes/Levels/map2drotatetest.tres" id="2_ttt7w"]
+[ext_resource type="Script" path="res://scenes/Levels/Weird debug thing.gd" id="3_erbi8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lm130"]
 shader = ExtResource("2_ttt7w")
@@ -40,7 +41,7 @@ shadow_mesh = SubResource("ArrayMesh_e83sq")
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="Map" type="Control" node_paths=PackedStringArray("map_pos_control") groups=["Player Transform Recievers"]]
+[node name="Map" type="Control" node_paths=PackedStringArray("map_pos_control", "goal_pos_control") groups=["Goal Recievers", "Player Transform Recievers", "The Map"]]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,6 +51,7 @@ grow_vertical = 2
 size_flags_vertical = 3
 script = ExtResource("1_wixqh")
 map_pos_control = NodePath("AspectRatioContainer/Control/Map Position")
+goal_pos_control = NodePath("AspectRatioContainer/Control/Goal Position")
 
 [node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
 layout_mode = 1
@@ -75,12 +77,15 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Map Meshes" type="Node2D" parent="AspectRatioContainer/Control/Center"]
-modulate = Color(1, 1, 1, 0.345098)
+modulate = Color(1, 1, 1, 0.403922)
 
 [node name="MeshInstance2D" type="MeshInstance2D" parent="AspectRatioContainer/Control/Center/Map Meshes"]
 modulate = Color(1, 0.231373, 1, 1)
 material = SubResource("ShaderMaterial_lm130")
 mesh = SubResource("ArrayMesh_n5khl")
+
+[node name="Weird debug thing" type="Node2D" parent="AspectRatioContainer/Control/Center/Map Meshes/MeshInstance2D"]
+script = ExtResource("3_erbi8")
 
 [node name="Debug Line Thingy" type="Line2D" parent="AspectRatioContainer/Control/Center"]
 modulate = Color(1, 1, 1, 0.360784)
@@ -100,6 +105,17 @@ grow_vertical = 2
 [node name="Car Symbol" type="Line2D" parent="AspectRatioContainer/Control/Map Position"]
 points = PackedVector2Array(9.172, 0, 0, 0)
 width_curve = SubResource("Curve_7j842")
+default_color = Color(1, 0.0705882, 0.0705882, 1)
 joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Goal Position" type="Control" parent="AspectRatioContainer/Control"]
+layout_mode = 1
+anchors_preset = 0
+
+[node name="Line2D" type="Line2D" parent="AspectRatioContainer/Control/Goal Position"]
+points = PackedVector2Array(0, 0, 0.006, 0)
+default_color = Color(1, 0.372549, 0.870588, 1)
 begin_cap_mode = 2
 end_cap_mode = 2
